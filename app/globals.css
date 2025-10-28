@@ -197,6 +197,10 @@ main {
   stroke: #e32195;
 }
 
+.liked {
+  fill: #e32195;
+}
+
 .like-button:hover svg,
 .liked .like-button svg {
   fill: #e32195;
