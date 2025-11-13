@@ -5,12 +5,28 @@ import LikeButton from './like-icon';
 import { togglePostLiskeStatus } from '@/app/actions/posts';
 import { likesFromPost } from '@/app/actions/posts';
 import { useOptimistic } from 'react';
+import Image from 'next/image';
 
 function Post({ post, action }) {
+  // optimize the size thats coming from cloudinary
+  function imageLoader(config) {
+    console.log(config);
+    const urlStart = config.src.split('upload/')[0];
+    const urlEnd = config.src.split('upload/')[1];
+    const transformations = `w_200,q_${config.quality}`;
+
+    return `${urlStart}upload/${transformations}/${urlEnd}`;
+  }
   return (
     <article className="post">
       <div className="post-image">
-        <img src={post.image} alt={post.title} />
+        <Image 
+          loader={imageLoader} 
+          src={post.image} 
+          width={200}
+          height={120}
+          alt={post.title} 
+          quality={50} />
       </div>
       <div className="post-content">
         <header>
